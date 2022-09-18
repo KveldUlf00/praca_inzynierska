@@ -1,11 +1,12 @@
 .app {
   text-align: center;
-  height: 70vh;
+  height: 100vh;
 
   .graph {
-    width: calc(100% - 4rem);
-    height: calc(100% - 2rem);
+    width: calc(60% - 4rem);
+    height: calc(60% - 2rem);
     padding: 1rem 2rem;
+    margin: auto;
   }
 
   // graph attributes 
@@ -19,12 +20,12 @@
 
   .node {
     fill: #ccc;
-    stroke: #fff;
+    stroke: #000;
     stroke-width: 5px;
   }
   
   .link {
-    stroke: #fff;
+    stroke: #000;
     stroke-width: 2px;
   }
 }
