@@ -5,8 +5,7 @@ import {
   forceSimulation,
   forceManyBody,
   pointer,
-  forceX,
-  forceY,
+  forceLink,
   forceCollide,
   forceRadial,
 } from "d3";
@@ -40,7 +39,14 @@ function ForceTreeChart({ data }) {
     const linkData = root.links();
 
     const simulation = forceSimulation(nodeData)
-      .force("charge", forceManyBody().strength(-30))
+      .force(
+        "link",
+        forceLink(linkData)
+          .id((d) => d.id)
+          .distance(0)
+          .strength(1)
+      )
+      .force("charge", forceManyBody().strength(-500).theta(0.9))
       .force("collide", forceCollide(20))
       .on("tick", () => {
         console.log("current force", simulation.alpha());
