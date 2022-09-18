@@ -2,30 +2,48 @@
   text-align: center;
   height: 100vh;
 
-  .graph {
-    width: calc(60% - 4rem);
-    height: calc(60% - 2rem);
-    padding: 1rem 2rem;
-    margin: auto;
+  h2 {
+    margin: 0;
+    padding: 1rem 0;
   }
 
-  // graph attributes 
-  svg {
-    overflow: visible;
-    display: block;
+  .tab-panel {
+    padding-bottom: 2rem;
+  }
+
+  .tab-content {
     width: 100%;
-    height: 100%;
-    background: #eee;
+
+    .graph {
+      width: 80%;
+      margin: auto;
+    }
+
+    // graph attributes 
+    svg {
+      overflow: visible;
+      display: block;
+      width: 100%;
+      min-height: 70vh;
+      background: #eee;
+    }
+
+    .node {
+      fill: #ccc;
+      stroke: #000;
+      stroke-width: 5px;
+    }
+    
+    .link {
+      stroke: #000;
+      stroke-width: 2px;
+    }
   }
 
-  .node {
-    fill: #ccc;
-    stroke: #000;
-    stroke-width: 5px;
-  }
-  
-  .link {
-    stroke: #000;
-    stroke-width: 2px;
+  .space {
+    width: 80%;
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+    margin: 2rem auto;
   }
 }
