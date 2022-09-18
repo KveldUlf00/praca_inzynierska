@@ -49,7 +49,7 @@ function ForceTreeChart({ data }) {
       .force("charge", forceManyBody().strength(-500).theta(0.9))
       .force("collide", forceCollide(20))
       .on("tick", () => {
-        console.log("current force", simulation.alpha());
+        // console.log("current force", simulation.alpha());
 
         // current alpha text
         // svg
