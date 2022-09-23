@@ -11,22 +11,24 @@ const Settings = ({ setData }) => {
     // API get data - give file to generate data
     console.log("Providing Data!");
     setData({
-      name: "main",
-      children: [
-        {
-          name: "child1",
-          children: [
-            {
-              name: "gr1",
-            },
-            {
-              name: "gr2",
-            },
-            {
-              name: "gr3",
-            },
-          ],
-        },
+      nodes: [
+        { name: "Alice", group: 1 },
+        { name: "Bob", group: 1 },
+        { name: "Chen", group: 2 },
+        { name: "Dawg", group: 1 },
+        { name: "Ethan", group: 2 },
+        { name: "George", group: 1 },
+        { name: "Frank", group: 1 },
+        { name: "Hanes", group: 1 },
+      ],
+      links: [
+        { source: "Alice", target: "Bob", value: 1 },
+        { source: "Alice", target: "Dawg", value: 2 },
+        { source: "Alice", target: "Chen", value: 3 },
+        { source: "Alice", target: "Frank", value: 4 },
+        { source: "Alice", target: "George", value: 5 },
+        { source: "Alice", target: "Ethan", value: 6 },
+        { source: "Alice", target: "Hanes", value: 6 },
       ],
     });
     setFileName("Draft file name");
