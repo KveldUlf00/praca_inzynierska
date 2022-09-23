@@ -10,6 +10,25 @@ const Settings = ({ setData }) => {
   const handleProvideData = () => {
     // API get data - give file to generate data
     console.log("Providing Data!");
+    setData({
+      name: "main",
+      children: [
+        {
+          name: "child1",
+          children: [
+            {
+              name: "gr1",
+            },
+            {
+              name: "gr2",
+            },
+            {
+              name: "gr3",
+            },
+          ],
+        },
+      ],
+    });
     setFileName("Draft file name");
   };
 
@@ -37,11 +56,11 @@ const Settings = ({ setData }) => {
 };
 
 Settings.propTypes = {
-  cleanData: PropTypes.func.isRequired,
+  setData: PropTypes.func.isRequired,
 };
 
 // Settings.defaultProps = {
-//   cleanData: () => {},
+//   setData: () => {},
 // };
 
 export default Settings;
