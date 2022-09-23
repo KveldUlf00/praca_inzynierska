@@ -11,11 +11,17 @@ const App = () => {
   const [data, setData] = useState({});
   const [activeTab, setActiveTab] = useState("settings");
 
-  console.log(data);
-
   const handleChangeTab = (e, newTab) => {
     setActiveTab(newTab);
   };
+
+  const changeData = (elements) => {
+    console.log(elements);
+  };
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   useEffect(() => {
     // API get data
