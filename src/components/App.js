@@ -15,78 +15,28 @@ const App = () => {
     setActiveTab(newTab);
   };
 
-  const changeData = (elements) => {
-    console.log(elements);
-  };
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  console.log(data);
 
   useEffect(() => {
     // API get data
     setData({
-      name: "main",
-      children: [
-        {
-          name: "child1",
-          children: [
-            {
-              name: "gr1",
-            },
-            {
-              name: "gr2",
-            },
-            {
-              name: "gr3",
-            },
-          ],
-        },
-        {
-          name: "child1",
-          children: [
-            {
-              name: "gr1",
-            },
-            {
-              name: "gr2",
-            },
-            {
-              name: "gr3",
-            },
-          ],
-        },
-        {
-          name: "child1",
-          children: [
-            {
-              name: "gr1",
-            },
-            {
-              name: "gr2",
-            },
-            {
-              name: "gr3",
-            },
-          ],
-        },
-        {
-          name: "child1",
-          children: [
-            {
-              name: "gr1",
-            },
-            {
-              name: "gr2",
-            },
-            {
-              name: "gr3",
-            },
-          ],
-        },
-        {
-          name: "child2",
-        },
+      nodes: [
+        { name: "Alice", group: 1 },
+        { name: "Bob", group: 1 },
+        { name: "Chen", group: 2 },
+        { name: "Dawg", group: 1 },
+        { name: "Ethan", group: 2 },
+        { name: "George", group: 1 },
+        { name: "Frank", group: 1 },
+        { name: "Hanes", group: 1 },
+      ],
+      links: [
+        { source: "Alice", target: "Bob", value: 1 },
+        { source: "Chen", target: "Bob", value: 2 },
+        { source: "Dawg", target: "Chen", value: 3 },
+        { source: "Hanes", target: "Frank", value: 4 },
+        { source: "Hanes", target: "George", value: 5 },
+        { source: "Dawg", target: "Ethan", value: 6 },
       ],
     });
   }, []);

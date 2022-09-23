@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import {
   select,
-  hierarchy,
   forceSimulation,
   forceManyBody,
   pointer,
@@ -22,6 +21,8 @@ function ForceTreeChart({ data }) {
 
   // will be called initially and on every data change
   useEffect(() => {
+    const { nodes, links } = data;
+
     if (!dimensions) return;
     const svg = select(svgRef.current);
 
@@ -33,20 +34,15 @@ function ForceTreeChart({ data }) {
       dimensions.height,
     ]);
 
-    // d3 util to work with hierarchical data
-    const root = hierarchy(data);
-    const nodeData = root.descendants();
-    const linkData = root.links();
-
-    const simulation = forceSimulation(nodeData)
+    const simulation = forceSimulation(nodes)
       .force(
         "link",
-        forceLink(linkData)
-          .id((d) => d.id)
+        forceLink(links)
+          .id((d) => d.name)
           .distance(0)
           .strength(1)
       )
-      .force("charge", forceManyBody().strength(-500).theta(0.9))
+      .force("charge", forceManyBody().strength(-3).theta(0.9))
       .force("collide", forceCollide(20))
       .on("tick", () => {
         // console.log("current force", simulation.alpha());
@@ -64,7 +60,7 @@ function ForceTreeChart({ data }) {
         // links
         svg
           .selectAll(".link")
-          .data(linkData)
+          .data(links)
           .join("line")
           .attr("class", "link")
           .attr("stroke", "black")
@@ -77,7 +73,7 @@ function ForceTreeChart({ data }) {
         // nodes
         svg
           .selectAll(".node")
-          .data(nodeData)
+          .data(nodes)
           .join("circle")
           .attr("class", "node")
           .attr("r", 4)
@@ -87,12 +83,12 @@ function ForceTreeChart({ data }) {
         // labels
         svg
           .selectAll(".label")
-          .data(nodeData)
+          .data(nodes)
           .join("text")
           .attr("class", "label")
           .attr("text-anchor", "middle")
           .attr("font-size", 20)
-          .text((node) => node.data.name)
+          .text((node) => node.name)
           .attr("x", (node) => node.x)
           .attr("y", (node) => node.y);
       });
