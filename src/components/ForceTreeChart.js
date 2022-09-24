@@ -39,7 +39,7 @@ function ForceTreeChart({ data }) {
         "link",
         forceLink(links)
           .id((d) => d.name)
-          .distance(0)
+          .distance(50)
           .strength(1)
       )
       .force("charge", forceManyBody().strength(-3).theta(0.9))
