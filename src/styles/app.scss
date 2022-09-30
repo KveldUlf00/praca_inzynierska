@@ -29,6 +29,7 @@
     }
 
     .node {
+      cursor: pointer;
       fill: #ccc;
       stroke: #000;
       stroke-width: 5px;
@@ -37,6 +38,10 @@
     .link {
       stroke: #000;
       stroke-width: 2px;
+    }
+
+    .label {
+      cursor: pointer;
     }
   }
 
