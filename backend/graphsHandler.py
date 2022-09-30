@@ -10,7 +10,7 @@ def transformData(file):
         for name in data[1][index].split(", "):
             links.append({ 'source': data[0][index], 'target': name})
 
-    return {'nodes': nodes, 'links': links}
+    return {"data": {'nodes': nodes, 'links': links}, 'fileName': file.filename}
 
 
 

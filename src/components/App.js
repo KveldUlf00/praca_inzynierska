@@ -9,6 +9,7 @@ import TabPanel from "./TabPanel";
 
 const App = () => {
   const [data, setData] = useState({});
+  const [fileName, setFileName] = useState("");
   const [activeTab, setActiveTab] = useState("settings");
 
   const handleChangeTab = (e, newTab) => {
@@ -64,7 +65,11 @@ const App = () => {
         <Tab value="info" label="Info" />
       </Tabs>
       <TabPanel value={activeTab} index="settings">
-        <Settings setData={setData} />
+        <Settings
+          setData={setData}
+          fileName={fileName}
+          setFileName={setFileName}
+        />
       </TabPanel>
       <TabPanel value={activeTab} index="network">
         <ForceTreeChart data={data} />
