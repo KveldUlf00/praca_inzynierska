@@ -79,7 +79,7 @@ def http_send():
             # print(content)
             res = transformData(file)
 
-            return jsonify({"network": res})
+            return jsonify({"network": res["data"], "fileName": res["fileName"]})
 
         return jsonify({"message": "failure"})
 

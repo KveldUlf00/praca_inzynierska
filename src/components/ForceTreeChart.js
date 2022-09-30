@@ -1,10 +1,13 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Box, Popover, Typography } from "@mui/material";
 import {
   select,
   forceSimulation,
   forceManyBody,
   pointer,
   forceLink,
+  forceX,
+  forceY,
   forceCollide,
   forceRadial,
 } from "d3";
@@ -15,9 +18,31 @@ import useResizeObserver from "../service/useResizeObserver";
  */
 
 function ForceTreeChart({ data }) {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElData, setAnchorElData] = useState({});
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    setAnchorElData({});
+  };
+
+  const openPopover = Boolean(anchorEl);
+  const idPopover = openPopover ? "simple-popover" : undefined;
+
+  const handleNodeEvent = (e, info) => {
+    console.log(info);
+    const allLabels = document.querySelectorAll(".label");
+    const searchedLabel = [...allLabels].filter(
+      (elem) => elem.innerHTML === info.name
+    );
+    if (searchedLabel.length > 0) {
+      setAnchorEl(searchedLabel[0]);
+      setAnchorElData(info);
+    }
+  };
 
   // will be called initially and on every data change
   useEffect(() => {
@@ -39,7 +64,7 @@ function ForceTreeChart({ data }) {
         "link",
         forceLink(links)
           .id((d) => d.name)
-          .distance(50)
+          .distance(200)
           .strength(1)
       )
       .force("charge", forceManyBody().strength(-3).theta(0.9))
@@ -78,7 +103,8 @@ function ForceTreeChart({ data }) {
           .attr("class", "node")
           .attr("r", 4)
           .attr("cx", (node) => node.x)
-          .attr("cy", (node) => node.y);
+          .attr("cy", (node) => node.y)
+          .on("click", handleNodeEvent);
 
         // labels
         svg
@@ -90,7 +116,8 @@ function ForceTreeChart({ data }) {
           .attr("font-size", 20)
           .text((node) => node.name)
           .attr("x", (node) => node.x)
-          .attr("y", (node) => node.y);
+          .attr("y", (node) => node.y)
+          .on("click", handleNodeEvent);
       });
 
     // svg.on("mousemove", (event) => {
@@ -106,31 +133,56 @@ function ForceTreeChart({ data }) {
     //     );
     // });
 
-    svg.on("click", (event) => {
-      const [x, y] = pointer(event);
-      simulation
-        .alpha(0.5)
-        .restart()
-        .force("orbit", forceRadial(100, x, y).strength(0.8));
+    // svg.on("click", (event) => {
+    //   const [x, y] = pointer(event);
+    //   simulation
+    //     .alpha(0.5)
+    //     .restart()
+    //     .force("orbit", forceRadial(100, x, y).strength(0.8));
 
-      // render a circle to show radial force
-      svg
-        .selectAll(".orbit")
-        .data([data])
-        .join("circle")
-        .attr("class", "orbit")
-        .attr("stroke", "green")
-        .attr("fill", "none")
-        .attr("r", 100)
-        .attr("cx", x)
-        .attr("cy", y);
-    });
+    //   // render a circle to show radial force
+    //   svg
+    //     .selectAll(".orbit")
+    //     .data([data])
+    //     .join("circle")
+    //     .attr("class", "orbit")
+    //     .attr("stroke", "green")
+    //     .attr("fill", "none")
+    //     .attr("r", 100)
+    //     .attr("cx", x)
+    //     .attr("cy", y);
+    // });
   }, [data, dimensions]);
 
   return (
-    <div className="graph" ref={wrapperRef}>
-      <svg ref={svgRef}></svg>
-    </div>
+    <>
+      <div className="graph" ref={wrapperRef}>
+        <svg ref={svgRef}></svg>
+      </div>
+      <Popover
+        className="popover"
+        id={idPopover}
+        open={openPopover}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Box sx={{ minWidth: 200, textAlign: "center" }}>
+          <Typography variant="h5" sx={{ p: 2 }}>
+            {anchorElData.name}
+          </Typography>
+          <Typography sx={{ p: 1 }}>Group: {anchorElData.group}</Typography>
+          <Typography sx={{ p: 1 }}>Index: {anchorElData.index}</Typography>
+        </Box>
+      </Popover>
+    </>
   );
 }
 
