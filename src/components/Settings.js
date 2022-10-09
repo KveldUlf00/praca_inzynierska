@@ -81,7 +81,7 @@ const Settings = ({ setData, fileName, setFileName }) => {
           </Box>
           <Typography sx={{ p: 1 }}>
             Remember, that all children (for example: "Ewa, Joanna") after colon
-            have to exist in parents (names vefore colon, such as "Adam", or
+            have to exist in parents (names before colon, such as "Adam", or
             "Ewa"){" "}
           </Typography>
         </Box>
