@@ -178,7 +178,19 @@ function ForceTreeChart({ data }) {
           <Typography variant="h5" sx={{ p: 2 }}>
             {anchorElData.name}
           </Typography>
-          <Typography sx={{ p: 1 }}>Group: {anchorElData.group}</Typography>
+          {anchorElData?.verticesDegree && (
+            <Typography sx={{ p: 1 }}>
+              Vertices degree: {anchorElData.verticesDegree}
+            </Typography>
+          )}
+          {anchorElData?.closenessCentrality && (
+            <Typography sx={{ p: 1 }}>
+              Closeness centrality: {anchorElData.closenessCentrality}
+            </Typography>
+          )}
+          {anchorElData?.group && (
+            <Typography sx={{ p: 1 }}>Group: {anchorElData.group}</Typography>
+          )}
           <Typography sx={{ p: 1 }}>Index: {anchorElData.index}</Typography>
         </Box>
       </Popover>
