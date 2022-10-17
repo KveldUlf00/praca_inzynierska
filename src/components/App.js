@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import ForceTreeChart from "./ForceTreeChart";
+import ForceTreeChart from "./network/ForceTreeChart";
 import Info from "./Info";
 import Settings from "./Settings";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import TabPanel from "./TabPanel";
+import TabPanel from "./reusable/TabPanel";
 
 const App = () => {
   const [data, setData] = useState({});
   const [fileName, setFileName] = useState("");
+  const [cliques, setCliques] = useState([]);
   const [activeTab, setActiveTab] = useState("settings");
 
   const handleChangeTab = (e, newTab) => {
@@ -69,10 +70,11 @@ const App = () => {
           setData={setData}
           fileName={fileName}
           setFileName={setFileName}
+          setCliques={setCliques}
         />
       </TabPanel>
       <TabPanel value={activeTab} index="network">
-        <ForceTreeChart data={data} />
+        <ForceTreeChart data={data} cliques={cliques} />
       </TabPanel>
       <TabPanel value={activeTab} index="info">
         <Info />

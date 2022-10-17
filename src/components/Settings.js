@@ -4,13 +4,13 @@ import axios from "axios";
 import { Box, Popover, Typography } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 
-import ButtonMui from "./ButtonMui";
-import ButtonIconMui from "./ButtonIconMui";
-import UploaderMui from "./UploaderMui";
-import Space from "./Space";
+import ButtonMui from "./reusable/ButtonMui";
+import ButtonIconMui from "./reusable/ButtonIconMui";
+import UploaderMui from "./reusable/UploaderMui";
+import Space from "./reusable/Space";
 import { useState } from "react";
 
-const Settings = ({ setData, fileName, setFileName }) => {
+const Settings = ({ setData, fileName, setCliques, setFileName }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const openPopover = Boolean(anchorEl);
@@ -35,6 +35,7 @@ const Settings = ({ setData, fileName, setFileName }) => {
       .then((res) => {
         setData(res.data?.network);
         setFileName(res.data?.fileName);
+        setCliques(res.data?.cliques);
       })
       .catch((err) => console.error(err))
       .finally(() => console.log("reloading"));

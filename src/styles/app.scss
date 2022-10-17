@@ -15,15 +15,16 @@
     width: 100%;
 
     .graph {
-      width: 80%;
+      width: 60%;
       margin: auto;
 
       // graph attributes 
       svg {
-        overflow: visible;
+        overflow: hidden;
         display: block;
         width: 100%;
-        min-height: 70vh;
+        min-height: 60vh;
+        max-height: 60vh;
         background: #eee;
       }
 
@@ -35,13 +36,17 @@
       }
       
       .link {
-        stroke: #000;
+        // stroke: #000;
         stroke-width: 2px;
       }
 
       .label {
         cursor: pointer;
       }
+    }
+
+    .properties {
+      width: 100%;
     }
   }
 
@@ -50,5 +55,18 @@
     background-color: #fff;
     border-bottom: 1px solid #fff;
     margin: 2rem auto;
+  }
+
+  .selectMui {
+    min-width: 200px;
+    border-color: #fff !important;
+
+    label,
+    svg,
+    div,
+    fieldset {
+      color: #fff !important;
+      border-color: #fff !important;
+    }
   }
 }

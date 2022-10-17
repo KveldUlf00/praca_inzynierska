@@ -1,0 +1,25 @@
+.cliques {
+    width: 80%;
+    margin: auto;
+    display: flex;
+
+    div:first-of-type {
+        margin-right: 2rem;
+    }
+
+    .dataSet {
+        button {
+            margin: .25rem 1rem;
+        }
+    }
+}
+
+.dependency {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        margin-right: 1rem;
+    }
+}

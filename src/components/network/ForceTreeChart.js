@@ -10,19 +10,38 @@ import {
   forceY,
   forceCollide,
   forceRadial,
+  schemeTableau10,
 } from "d3";
-import useResizeObserver from "../service/useResizeObserver";
+import useResizeObserver from "../../service/useResizeObserver";
+import Properties from "./Properties";
 
 /**
  * Component, that renders a force layout for hierarchical data.
  */
 
-function ForceTreeChart({ data }) {
+function ForceTreeChart({ data, cliques }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElData, setAnchorElData] = useState({});
+  const [whichClique, setWhichClique] = useState("");
+  const [cliqueSet, setCliqueSet] = useState([]);
+  const [dependencyNode, setDependencyNode] = useState("");
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
+
+  // const colors = schemeTableau10;
+  const colors = [
+    "#e6e6e6",
+    "#cccccc",
+    "#b3b3b3",
+    "#808080",
+    "#808080",
+    "#666666",
+    "#4d4d4d",
+    "#333333",
+    "#1a1a1a",
+    "#000000",
+  ];
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -64,11 +83,11 @@ function ForceTreeChart({ data }) {
         "link",
         forceLink(links)
           .id((d) => d.name)
-          .distance(200)
+          .distance(100)
           .strength(1)
       )
-      .force("charge", forceManyBody().strength(-3).theta(0.9))
-      .force("collide", forceCollide(20))
+      .force("charge", forceManyBody().strength(-1).theta(0.9))
+      .force("collide", forceCollide(40))
       .on("tick", () => {
         // console.log("current force", simulation.alpha());
 
@@ -88,7 +107,9 @@ function ForceTreeChart({ data }) {
           .data(links)
           .join("line")
           .attr("class", "link")
-          .attr("stroke", "black")
+          .attr("stroke", (link) =>
+            link?.weight ? colors[Number(link.weight)] : "black"
+          )
           .attr("fill", "none")
           .attr("x1", (link) => link.source.x)
           .attr("y1", (link) => link.source.y)
@@ -159,6 +180,16 @@ function ForceTreeChart({ data }) {
       <div className="graph" ref={wrapperRef}>
         <svg ref={svgRef}></svg>
       </div>
+      <Properties
+        data={data}
+        cliquesData={cliques}
+        whichClique={whichClique}
+        setWhichClique={setWhichClique}
+        cliqueSet={cliqueSet}
+        setCliqueSet={setCliqueSet}
+        dependencyNode={dependencyNode}
+        setDependencyNode={setDependencyNode}
+      />
       <Popover
         className="popover"
         id={idPopover}
