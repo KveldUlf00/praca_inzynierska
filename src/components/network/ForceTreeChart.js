@@ -63,9 +63,49 @@ function ForceTreeChart({ data, cliques }) {
     }
   };
 
+  useEffect(() => {
+    if (dependencyNode === -1) {
+      setDependencyNode("");
+    }
+  }, [dependencyNode]);
+
   // will be called initially and on every data change
   useEffect(() => {
     const { nodes, links } = data;
+
+    const handleCorrColorsForNodes = (node) => {
+      if (dependencyNode && dependencyNode !== -1) {
+        const chosenName = nodes.filter(
+          (node) => node.index === dependencyNode
+        )[0].name;
+
+        const corrColors = {
+          perfect: "#006600",
+          high: "#33cc33",
+          moderate: "#ffff00",
+          low: "#ff6600",
+          zero: "#ff0000",
+        };
+
+        const corr = Object.entries(node.correlations).filter(
+          (arr) => arr[0] === chosenName
+        )[0][1];
+
+        if (corr === 1) {
+          return corrColors.perfect;
+        } else if (corr < 1 && corr >= 0.5) {
+          return corrColors.high;
+        } else if (corr < 0.5 && corr >= 0.3) {
+          return corrColors.moderate;
+        } else if (corr < 0.3 && corr > 0) {
+          return corrColors.low;
+        } else {
+          return corrColors.zero;
+        }
+      }
+
+      return "#000";
+    };
 
     if (!dimensions) return;
     const svg = select(svgRef.current);
@@ -110,7 +150,6 @@ function ForceTreeChart({ data, cliques }) {
           .attr("stroke", (link) =>
             link?.weight ? colors[Number(link.weight)] : "black"
           )
-          .attr("fill", "none")
           .attr("x1", (link) => link.source.x)
           .attr("y1", (link) => link.source.y)
           .attr("x2", (link) => link.target.x)
@@ -122,6 +161,7 @@ function ForceTreeChart({ data, cliques }) {
           .data(nodes)
           .join("circle")
           .attr("class", "node")
+          .attr("stroke", (node) => handleCorrColorsForNodes(node))
           .attr("r", 4)
           .attr("cx", (node) => node.x)
           .attr("cy", (node) => node.y)
@@ -173,7 +213,7 @@ function ForceTreeChart({ data, cliques }) {
     //     .attr("cx", x)
     //     .attr("cy", y);
     // });
-  }, [data, dimensions]);
+  }, [data, dimensions, dependencyNode]);
 
   return (
     <>
