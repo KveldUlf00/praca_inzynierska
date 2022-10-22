@@ -42,6 +42,7 @@ def transformData(file):
         # list important for networkx package
             connection_list.append((conn[0], conn[1]))
 
+
     # correlation matrix
     df = pd.DataFrame(matrixData)
     corr = df.corr()
@@ -53,6 +54,11 @@ def transformData(file):
         for nameRow in nodeNames:
             nameObjectCorr[nameRow] = corr[nameColumn][nameRow]
         corrObject[nameColumn] = nameObjectCorr
+
+
+    # add correlation values to node
+    for node in nodes:
+        node["correlations"] = corrObject[node["name"]]
 
 
     # networkx

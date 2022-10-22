@@ -3,7 +3,6 @@ import SelectMui from "../reusable/SelectMui";
 
 const Dependency = ({ data, dependencyNode, setDependencyNode }) => {
   const [selectOptions, setSelectOptions] = useState([]);
-  console.log("Dependency");
 
   useEffect(() => {
     setSelectOptions(
