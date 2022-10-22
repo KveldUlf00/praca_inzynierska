@@ -1,45 +1,58 @@
 import pandas as pd
 import networkx as nx
+from flask import json
 
 def transformData(file):
     nodes = []
     links = []
     connection_list = []
-    data = pd.read_csv(file, sep=", ", header = None)
+    matrixData = {}
+    corrObject = {}
 
-    def checkNamesUniqueness(name):
+    data = json.load(file)
+
+    def checkNamesUniqueness(elem):
         for node in nodes:
-            print(name, node["name"])
-            if name == node["name"]:
+            if elem["name"] == node["name"]:
                 return False
         return True
 
     def checkLinksUniqueness(link):
         for node in links:
-            print(link, node)
-            if { 'source': link[0], 'target': link[1]} == { 'source': node['source'], 'target': node['target']} or { 'source': link[1], 'target': link[0]} == { 'source': node['target'], 'target': node['source']}:
+            if { 'source': link[0], 'target': link[1]} == { 'source': node['source'], 'target': node['target']} or { 'source': link[1], 'target': link[0]} == { 'source': node['source'], 'target': node['target']}:
                 return False
         return True
 
-    for index in range(data.shape[0]) :
-        if checkNamesUniqueness(data[0][index]):
-            nodes.append({ 'name': data[0][index] })
-        if checkNamesUniqueness(data[1][index]):
-            nodes.append({ 'name': data[1][index] })
-        
-        if checkLinksUniqueness([data[0][index], data[1][index]]):
-            linkToAdd = {}
-            linkToAdd['source'] = data[0][index]
-            linkToAdd['target'] = data[1][index]
+    for node in data["nodes"]:
+        if checkNamesUniqueness(node):
+            nodes.append(node)
 
-            for attrIndex in range(2, data.shape[1]):
-                attr = data[attrIndex][index].split(": ")
-                linkToAdd[attr[0]] = attr[1]
+            attrToMatrix = []
+            for attribute in node["attributes"]:
+                attrToMatrix.append(node["attributes"][attribute])
+            matrixData[node["name"]] = attrToMatrix
+
+    for conn in data["connections"]:
+        if checkLinksUniqueness(conn):
+            linkToAdd = {}
+            linkToAdd['source'] = conn[0]
+            linkToAdd['target'] = conn[1]
 
             links.append(linkToAdd)
-            # list important for networkx package
-            connection_list.append((data[0][index], data[1][index]))
-            # TODO: miejsce na macierz kowariancji
+        # list important for networkx package
+            connection_list.append((conn[0], conn[1]))
+
+    # correlation matrix
+    df = pd.DataFrame(matrixData)
+    corr = df.corr()
+
+    nodeNames = [elem["name"] for elem in nodes]
+
+    for nameColumn in nodeNames:
+        nameObjectCorr = {}
+        for nameRow in nodeNames:
+            nameObjectCorr[nameRow] = corr[nameColumn][nameRow]
+        corrObject[nameColumn] = nameObjectCorr
 
 
     # networkx
@@ -57,11 +70,6 @@ def transformData(file):
                 if nodeElem["name"] == node:
                     nodeElem["closenessCentrality"] = round(nx.closeness_centrality(Graph)[node], 3)
 
-    def correlation(Graph):
-        # Korelacja
-        corr = nx.degree_pearson_correlation_coefficient(Graph)
-        print(corr)
-
     def allCliques(Graph):
         cliques = list(nx.enumerate_all_cliques(Graph))
         cliques = [cliq for cliq in cliques if len(cliq) > 2]
@@ -76,9 +84,4 @@ def transformData(file):
     closenessCentrality(G)
     cliques = allCliques(G)
 
-    return {"data": {'nodes': nodes, 'links': links}, 'fileName': file.filename, 'cliques': cliques}
-
-
-
-
-
+    return {"data": {'nodes': nodes, 'links': links}, 'fileName': data["title"], 'cliques': cliques, 'corr': corrObject}
