@@ -16,6 +16,41 @@ const Settings = ({ setData, fileName, setCliques, setFileName }) => {
   const openPopover = Boolean(anchorEl);
   const idPopover = openPopover ? "simple-popover" : undefined;
 
+  const demonstrationData = {
+    title: "Title of the network",
+    nodes: [
+      {
+        name: "Andrzej",
+        attributes: {
+          attr1: 2,
+          attr2: 4,
+          attr3: 7,
+        },
+      },
+      {
+        name: "Basia",
+        attributes: {
+          attr1: 5,
+          attr2: 2,
+          attr3: 9,
+        },
+      },
+      {
+        name: "Krzysztof",
+        attributes: {
+          attr1: 7,
+          attr2: 2,
+          attr3: 3,
+        },
+      },
+    ],
+    connections: [
+      ["Andrzej", "Basia"],
+      ["Basia", "Krzysztof"],
+      ["Krzysztof", "Andrzej"],
+    ],
+  };
+
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -70,20 +105,29 @@ const Settings = ({ setData, fileName, setCliques, setFileName }) => {
           </Typography>
           <Box
             sx={{
-              textAlign: "center",
               fontStyle: "italic",
             }}
           >
-            <p>Adam: Ewa, Joanna</p>
-            <p>Ewa: Joanna</p>
-            <p>Joanna: Krzysiek</p>
-            <p>Karol: Krzysiek, Ewa</p>
-            <p>Krzysiek: Adam</p>
+            <pre id="json">
+              {JSON.stringify(demonstrationData, undefined, 2)}
+            </pre>
           </Box>
           <Typography sx={{ p: 1 }}>
-            Remember, that all children (for example: "Ewa, Joanna") after colon
-            have to exist in parents (names before colon, such as "Adam", or
-            "Ewa"){" "}
+            As you can see the file format is the json. If You are not familiar
+            to such a format, I suggest you to use{" "}
+            <a
+              className="styled-link"
+              href="https://jsonlint.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              this page
+            </a>{" "}
+            to make sure about correct format.
+          </Typography>
+          <Typography sx={{ p: 1 }}>
+            Attributes in nodes will be used to calculate correlation, that's
+            why their values have to be numeric non string.
           </Typography>
         </Box>
       </Popover>

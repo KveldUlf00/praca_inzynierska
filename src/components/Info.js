@@ -2,37 +2,26 @@ const Info = () => {
   return (
     <div className="info-component">
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu
-        lacinia sem. Suspendisse euismod justo nec tellus euismod, id imperdiet
-        eros consequat. Sed ac lacus eu sapien rutrum vehicula eget non nulla.
-        Vestibulum suscipit auctor urna. Pellentesque habitant morbi tristique
-        senectus et netus et malesuada fames ac turpis egestas. Nullam ut quam
-        nec dui eleifend tincidunt in a elit. Aenean nec nibh purus. Aenean vel
-        lectus eget massa fringilla tincidunt a et lorem. Aenean suscipit mauris
-        nec turpis viverra, non eleifend ante eleifend.
+        The application is created as part of the engineering work, carried out
+        at the turn of 2022 and 2023 at the Wrocław University of Technology in
+        the field of Systems Engineering
       </p>
       <p>
-        Ut sapien enim, finibus et bibendum in, finibus sed lectus. Etiam
-        pulvinar pretium sagittis. Proin enim tellus, volutpat malesuada posuere
-        et, rutrum a nisi. Nullam eget purus vitae arcu feugiat pretium.
-        Pellentesque habitant morbi tristique senectus et netus et malesuada
-        fames ac turpis egestas. Donec lorem velit, imperdiet ut quam vel,
-        luctus fermentum orci. Nunc sapien leo, venenatis non ex et, mollis
-        auctor sapien. Maecenas egestas sapien at mauris facilisis, vitae
-        posuere orci suscipit. Proin gravida vehicula justo, vitae maximus nisl
-        elementum nec.
+        <b>The aim</b> of the work is to develop a Web tool that allows the
+        visualization of nodes and links of a complex network and the user's
+        selection of a subnetwork containing strongly interconnected nodes. In
+        addition, the user will have availability to trace the effects of
+        changing the state of the selected node on the entire subnet
       </p>
       <p>
-        Pellentesque in magna eu enim maximus bibendum at a magna. Donec
-        pharetra massa in magna pellentesque fermentum. Sed rhoncus egestas
-        feugiat. In placerat vel nisi sit amet scelerisque. Ut laoreet dignissim
-        scelerisque. Sed fringilla aliquam erat, aliquam dictum elit posuere
-        nec. Sed ornare orci at nibh tempus commodo. Cras eu luctus augue, eget
-        pretium dui. Integer quis augue in ligula pulvinar condimentum.
-        Suspendisse libero ante, pharetra non tincidunt in, mollis sit amet
-        odio. Praesent vulputate tincidunt odio ut sollicitudin. Duis sed
-        facilisis libero. Curabitur eget arcu augue.
+        <b>The system aspect</b> of the work will be the ability to visualize
+        the network for any user (not necessarily a programmer) by uploading any
+        network. This makes the project a tool suited to the researcher and
+        enables quick network analysis
       </p>
+      <a href="https://pwr.edu.pl/" target="_blank" rel="noreferrer">
+        <img src="logo_pwr.png" alt="Wrocław University of Technology"></img>
+      </a>
     </div>
   );
 };
