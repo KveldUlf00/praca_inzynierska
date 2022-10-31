@@ -3,12 +3,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
-const SelectMui = ({ name, value, setValue, options }) => {
+const SelectMui = ({ name, value, setValue, options, className }) => {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-
-  console.log(options);
 
   return (
     <FormControl variant="outlined" className="selectMui">
@@ -19,6 +17,7 @@ const SelectMui = ({ name, value, setValue, options }) => {
         value={value}
         label={name}
         onChange={handleChange}
+        className={className ? className : ""}
       >
         {options.map((option) => (
           <MenuItem key={option.name} value={option.value}>

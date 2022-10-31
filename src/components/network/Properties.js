@@ -11,6 +11,8 @@ const Properties = ({
   cliquesData,
   whichClique,
   setWhichClique,
+  whichCliqueDegree,
+  setWhichCliqueDegree,
   cliqueSet,
   setCliqueSet,
   dependencyNode,
@@ -37,9 +39,12 @@ const Properties = ({
       </Tabs>
       <TabPanel value={activeTab} index="cliques">
         <Cliques
+          data={data}
           cliquesData={cliquesData}
           whichClique={whichClique}
           setWhichClique={setWhichClique}
+          whichCliqueDegree={whichCliqueDegree}
+          setWhichCliqueDegree={setWhichCliqueDegree}
           cliqueSet={cliqueSet}
           setCliqueSet={setCliqueSet}
         />

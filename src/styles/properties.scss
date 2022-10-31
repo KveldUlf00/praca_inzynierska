@@ -3,7 +3,16 @@
     margin: auto;
     display: flex;
 
-    div:first-of-type {
+    &__selects {
+        display: flex;
+        flex-direction: column;
+
+        &__degree {
+            margin-bottom: 1rem;
+        }
+    }
+
+    div:first-child {
         margin-right: 2rem;
     }
 

@@ -45,7 +45,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <h2>
+      <h2 className="title-of-app">
         Development of a Web application for the selection of groups in a
         complex network
       </h2>
