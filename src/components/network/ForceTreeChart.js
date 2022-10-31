@@ -44,6 +44,10 @@ function ForceTreeChart({ data, cliques }) {
     "#000000",
   ];
 
+  const ColorScale = require("color-scales");
+
+  let colorScale = new ColorScale(0, 100, ["#ff0000", "#009933"], 1);
+
   const handleClose = () => {
     setAnchorEl(null);
     setAnchorElData({});
@@ -98,17 +102,25 @@ function ForceTreeChart({ data, cliques }) {
           (arr) => arr[0] === chosenName
         )[0][1];
 
-        if (corr === 1) {
-          return corrColors.perfect;
-        } else if (corr < 1 && corr >= 0.5) {
-          return corrColors.high;
-        } else if (corr < 0.5 && corr >= 0.3) {
-          return corrColors.moderate;
-        } else if (corr < 0.3 && corr > 0) {
-          return corrColors.low;
-        } else {
-          return corrColors.zero;
-        }
+        const corrColor = colorScale
+          .getColor(corr > 0 ? Math.floor(corr * 100) : 0)
+          .toHexString();
+
+        // new colors
+        return corrColor;
+
+        // old colors
+        // if (corr === 1) {
+        //   return corrColors.perfect;
+        // } else if (corr < 1 && corr >= 0.5) {
+        //   return corrColors.high;
+        // } else if (corr < 0.5 && corr >= 0.3) {
+        //   return corrColors.moderate;
+        // } else if (corr < 0.3 && corr > 0) {
+        //   return corrColors.low;
+        // } else {
+        //   return corrColors.zero;
+        // }
       }
 
       return "#000";
