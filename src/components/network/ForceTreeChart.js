@@ -22,7 +22,8 @@ import Properties from "./Properties";
 function ForceTreeChart({ data, cliques }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElData, setAnchorElData] = useState({});
-  const [whichClique, setWhichClique] = useState("");
+  const [whichClique, setWhichClique] = useState([]);
+  const [whichCliqueDegree, setWhichCliqueDegree] = useState("");
   const [cliqueSet, setCliqueSet] = useState([]);
   const [dependencyNode, setDependencyNode] = useState("");
   const svgRef = useRef();
@@ -69,6 +70,12 @@ function ForceTreeChart({ data, cliques }) {
     }
   }, [dependencyNode]);
 
+  useEffect(() => {
+    if (whichCliqueDegree === -1) {
+      setWhichCliqueDegree("");
+    }
+  }, [whichCliqueDegree]);
+
   // will be called initially and on every data change
   useEffect(() => {
     const { nodes, links } = data;
@@ -107,6 +114,19 @@ function ForceTreeChart({ data, cliques }) {
       return "#000";
     };
 
+    const handleCorrColorsForLinks = (link) => {
+      if (whichClique.length > 0) {
+        if (
+          whichClique.includes(link.source.name) &&
+          whichClique.includes(link.target.name)
+        ) {
+          return "red";
+        }
+      }
+
+      return "black";
+    };
+
     if (!dimensions) return;
     const svg = select(svgRef.current);
 
@@ -141,15 +161,17 @@ function ForceTreeChart({ data, cliques }) {
         //   .attr("x", -dimensions.width / 2 + 10)
         //   .attr("y", -dimensions.height / 2 + 25);
 
+        // .attr("stroke", (link) =>
+        //     link?.weight ? colors[Number(link.weight)] : "black"
+        //   )
+
         // links
         svg
           .selectAll(".link")
           .data(links)
           .join("line")
           .attr("class", "link")
-          .attr("stroke", (link) =>
-            link?.weight ? colors[Number(link.weight)] : "black"
-          )
+          .attr("stroke", (link) => handleCorrColorsForLinks(link))
           .attr("x1", (link) => link.source.x)
           .attr("y1", (link) => link.source.y)
           .attr("x2", (link) => link.target.x)
@@ -213,7 +235,7 @@ function ForceTreeChart({ data, cliques }) {
     //     .attr("cx", x)
     //     .attr("cy", y);
     // });
-  }, [data, dimensions, dependencyNode]);
+  }, [data, dimensions, dependencyNode, whichClique]);
 
   return (
     <>
@@ -225,6 +247,8 @@ function ForceTreeChart({ data, cliques }) {
         cliquesData={cliques}
         whichClique={whichClique}
         setWhichClique={setWhichClique}
+        whichCliqueDegree={whichCliqueDegree}
+        setWhichCliqueDegree={setWhichCliqueDegree}
         cliqueSet={cliqueSet}
         setCliqueSet={setCliqueSet}
         dependencyNode={dependencyNode}
