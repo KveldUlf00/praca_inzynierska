@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import { Box, Popover, Typography } from "@mui/material";
 import {
   select,
@@ -11,6 +12,7 @@ import {
   forceCollide,
   forceRadial,
   schemeTableau10,
+  forceCenter,
 } from "d3";
 import useResizeObserver from "../../service/useResizeObserver";
 import Properties from "./Properties";
@@ -160,6 +162,7 @@ function ForceTreeChart({ data, cliques }) {
       )
       .force("charge", forceManyBody().strength(-1).theta(0.9))
       .force("collide", forceCollide(40))
+      .force("center", forceCenter())
       .on("tick", () => {
         // console.log("current force", simulation.alpha());
 
@@ -304,5 +307,10 @@ function ForceTreeChart({ data, cliques }) {
     </>
   );
 }
+
+ForceTreeChart.propTypes = {
+  data: PropTypes.object.isRequired,
+  cliques: PropTypes.array.isRequired,
+};
 
 export default ForceTreeChart;
