@@ -68,6 +68,10 @@ const Cliques = ({
   }, [cliquesData, whichClique]);
 
   useEffect(() => {
+    if (whichCliqueDegree === "") {
+      setFilterCliquesBy("");
+    }
+
     setCliqueSet(
       cliquesData
         .filter((elem) => elem.length === whichCliqueDegree)

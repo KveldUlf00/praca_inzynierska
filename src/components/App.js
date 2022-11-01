@@ -17,8 +17,6 @@ const App = () => {
     setActiveTab(newTab);
   };
 
-  console.log(data);
-
   return (
     <div className="app">
       <h2 className="title-of-app">
