@@ -155,6 +155,7 @@ const Settings = ({ setData, fileName, setCliques, setFileName }) => {
 Settings.propTypes = {
   setData: PropTypes.func.isRequired,
   fileName: PropTypes.string.isRequired,
+  setCliques: PropTypes.func.isRequired,
   setFileName: PropTypes.func.isRequired,
 };
 

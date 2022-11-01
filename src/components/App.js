@@ -17,32 +17,6 @@ const App = () => {
     setActiveTab(newTab);
   };
 
-  console.log(data);
-
-  useEffect(() => {
-    // API get data
-    setData({
-      nodes: [
-        { name: "Alice", group: 1 },
-        { name: "Bob", group: 1 },
-        { name: "Chen", group: 2 },
-        { name: "Dawg", group: 1 },
-        { name: "Ethan", group: 2 },
-        { name: "George", group: 1 },
-        { name: "Frank", group: 1 },
-        { name: "Hanes", group: 1 },
-      ],
-      links: [
-        { source: "Alice", target: "Bob", value: 1 },
-        { source: "Chen", target: "Bob", value: 2 },
-        { source: "Dawg", target: "Chen", value: 3 },
-        { source: "Hanes", target: "Frank", value: 4 },
-        { source: "Hanes", target: "George", value: 5 },
-        { source: "Dawg", target: "Ethan", value: 6 },
-      ],
-    });
-  }, []);
-
   return (
     <div className="app">
       <h2 className="title-of-app">
