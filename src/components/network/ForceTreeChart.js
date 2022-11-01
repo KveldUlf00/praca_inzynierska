@@ -54,6 +54,7 @@ function ForceTreeChart({ data, cliques }) {
   useEffect(() => {
     if (whichCliqueDegree === -1) {
       setWhichCliqueDegree("");
+      setWhichClique([]);
     }
   }, [whichCliqueDegree]);
 
