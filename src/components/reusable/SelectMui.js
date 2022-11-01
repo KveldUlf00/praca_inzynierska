@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -17,7 +19,7 @@ const SelectMui = ({ name, value, setValue, options, className }) => {
         value={value}
         label={name}
         onChange={handleChange}
-        className={className ? className : ""}
+        className={className}
       >
         {options.map((option) => (
           <MenuItem key={option.name} value={option.value}>
@@ -27,6 +29,18 @@ const SelectMui = ({ name, value, setValue, options, className }) => {
       </Select>
     </FormControl>
   );
+};
+
+SelectMui.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  setValue: PropTypes.func.isRequired,
+  options: PropTypes.array.isRequired,
+  className: PropTypes.string,
+};
+
+SelectMui.defaultProps = {
+  className: "",
 };
 
 export default SelectMui;

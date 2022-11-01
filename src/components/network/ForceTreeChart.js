@@ -1,26 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { Box, Popover, Typography } from "@mui/material";
 import {
   select,
   forceSimulation,
   forceManyBody,
-  pointer,
   forceLink,
-  forceX,
-  forceY,
   forceCollide,
-  forceRadial,
-  schemeTableau10,
   forceCenter,
 } from "d3";
 import useResizeObserver from "../../service/useResizeObserver";
 import Properties from "./Properties";
-
-/**
- * Component, that renders a force layout for hierarchical data.
- */
-
 function ForceTreeChart({ data, cliques }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElData, setAnchorElData] = useState({});
@@ -31,20 +21,6 @@ function ForceTreeChart({ data, cliques }) {
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
-
-  // const colors = schemeTableau10;
-  const colors = [
-    "#e6e6e6",
-    "#cccccc",
-    "#b3b3b3",
-    "#808080",
-    "#808080",
-    "#666666",
-    "#4d4d4d",
-    "#333333",
-    "#1a1a1a",
-    "#000000",
-  ];
 
   const ColorScale = require("color-scales");
 
@@ -59,7 +35,6 @@ function ForceTreeChart({ data, cliques }) {
   const idPopover = openPopover ? "simple-popover" : undefined;
 
   const handleNodeEvent = (e, info) => {
-    console.log(info);
     const allLabels = document.querySelectorAll(".label");
     const searchedLabel = [...allLabels].filter(
       (elem) => elem.innerHTML === info.name
@@ -82,7 +57,6 @@ function ForceTreeChart({ data, cliques }) {
     }
   }, [whichCliqueDegree]);
 
-  // will be called initially and on every data change
   useEffect(() => {
     const { nodes, links } = data;
 
@@ -92,14 +66,6 @@ function ForceTreeChart({ data, cliques }) {
           (node) => node.index === dependencyNode
         )[0].name;
 
-        const corrColors = {
-          perfect: "#006600",
-          high: "#33cc33",
-          moderate: "#ffff00",
-          low: "#ff6600",
-          zero: "#ff0000",
-        };
-
         const corr = Object.entries(node.correlations).filter(
           (arr) => arr[0] === chosenName
         )[0][1];
@@ -108,21 +74,7 @@ function ForceTreeChart({ data, cliques }) {
           .getColor(corr > 0 ? Math.floor(corr * 100) : 0)
           .toHexString();
 
-        // new colors
         return corrColor;
-
-        // old colors
-        // if (corr === 1) {
-        //   return corrColors.perfect;
-        // } else if (corr < 1 && corr >= 0.5) {
-        //   return corrColors.high;
-        // } else if (corr < 0.5 && corr >= 0.3) {
-        //   return corrColors.moderate;
-        // } else if (corr < 0.3 && corr > 0) {
-        //   return corrColors.low;
-        // } else {
-        //   return corrColors.zero;
-        // }
       }
 
       return "#000";
@@ -164,22 +116,6 @@ function ForceTreeChart({ data, cliques }) {
       .force("collide", forceCollide(40))
       .force("center", forceCenter())
       .on("tick", () => {
-        // console.log("current force", simulation.alpha());
-
-        // current alpha text
-        // svg
-        //   .selectAll(".alpha")
-        //   .data([data])
-        //   .join("text")
-        //   .attr("class", "alpha")
-        //   .text(simulation.alpha().toFixed(2))
-        //   .attr("x", -dimensions.width / 2 + 10)
-        //   .attr("y", -dimensions.height / 2 + 25);
-
-        // .attr("stroke", (link) =>
-        //     link?.weight ? colors[Number(link.weight)] : "black"
-        //   )
-
         // links
         svg
           .selectAll(".link")
@@ -217,39 +153,6 @@ function ForceTreeChart({ data, cliques }) {
           .attr("y", (node) => node.y)
           .on("click", handleNodeEvent);
       });
-
-    // svg.on("mousemove", (event) => {
-    //   const [x, y] = pointer(event);
-    //   simulation
-    //     .force(
-    //       "x",
-    //       forceX(x).strength((node) => 0.2 + node.depth * 0.15)
-    //     )
-    //     .force(
-    //       "y",
-    //       forceY(y).strength((node) => 0.2 + node.depth * 0.15)
-    //     );
-    // });
-
-    // svg.on("click", (event) => {
-    //   const [x, y] = pointer(event);
-    //   simulation
-    //     .alpha(0.5)
-    //     .restart()
-    //     .force("orbit", forceRadial(100, x, y).strength(0.8));
-
-    //   // render a circle to show radial force
-    //   svg
-    //     .selectAll(".orbit")
-    //     .data([data])
-    //     .join("circle")
-    //     .attr("class", "orbit")
-    //     .attr("stroke", "green")
-    //     .attr("fill", "none")
-    //     .attr("r", 100)
-    //     .attr("cx", x)
-    //     .attr("cy", y);
-    // });
   }, [data, dimensions, dependencyNode, whichClique]);
 
   return (

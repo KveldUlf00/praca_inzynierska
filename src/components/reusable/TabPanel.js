@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
 
@@ -13,6 +15,14 @@ const TabPanel = (props) => {
       {value === index && <>{children}</>}
     </div>
   );
+};
+
+TabPanel.propTypes = {
+  props: PropTypes.object,
+};
+
+TabPanel.defaultProps = {
+  props: {},
 };
 
 export default TabPanel;
