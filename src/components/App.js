@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import ForceTreeChart from "./network/ForceTreeChart";
 import Info from "./Info";
@@ -16,6 +16,8 @@ const App = () => {
   const handleChangeTab = (e, newTab) => {
     setActiveTab(newTab);
   };
+
+  console.log(data);
 
   return (
     <div className="app">

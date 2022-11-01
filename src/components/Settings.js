@@ -65,22 +65,19 @@ const Settings = ({ setData, fileName, setCliques, setFileName }) => {
 
     formData.append("file", file.files[0]);
     axios
-      .create()
       .post("http://127.0.0.1:5000/file", formData)
       .then((res) => {
         setData(res.data?.network);
         setFileName(res.data?.fileName);
         setCliques(res.data?.cliques);
       })
-      .catch((err) => console.error(err))
-      .finally(() => console.log("reloading"));
+      .catch((err) => console.error(err));
   };
 
   const handleCleanData = () => {
-    // reset data
-    console.log("Reseting Data!");
     setData({});
     setFileName("");
+    setCliques([]);
   };
 
   return (
@@ -158,9 +155,5 @@ Settings.propTypes = {
   setCliques: PropTypes.func.isRequired,
   setFileName: PropTypes.func.isRequired,
 };
-
-// Settings.defaultProps = {
-//   setData: () => {},
-// };
 
 export default Settings;

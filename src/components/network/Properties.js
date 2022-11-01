@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -58,6 +59,21 @@ const Properties = ({
       </TabPanel>
     </div>
   );
+};
+
+Properties.propTypes = {
+  data: PropTypes.object.isRequired,
+  cliquesData: PropTypes.array.isRequired,
+  whichClique: PropTypes.array.isRequired,
+  setWhichClique: PropTypes.func.isRequired,
+  whichCliqueDegree: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  setWhichCliqueDegree: PropTypes.func.isRequired,
+  cliqueSet: PropTypes.array.isRequired,
+  setCliqueSet: PropTypes.func.isRequired,
+  dependencyNode: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  setDependencyNode: PropTypes.func.isRequired,
 };
 
 export default Properties;

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+
 import SelectMui from "../reusable/SelectMui";
 
 const Dependency = ({ data, dependencyNode, setDependencyNode }) => {
@@ -12,22 +14,6 @@ const Dependency = ({ data, dependencyNode, setDependencyNode }) => {
     );
   }, [data]);
 
-  // useEffect(() => {
-  //   console.log("---------------------");
-  //   console.log(selectOptions);
-  //   console.log(
-  //     "tak czy nie?",
-  //     !selectOptions.some((elem) => elem === { name: "Reset", value: -1 })
-  //   );
-  //   if (
-  //     selectOptions.length > 0 &&
-  //     !selectOptions.some((elem) => elem === { name: "Reset", value: -1 })
-  //   ) {
-  //     setSelectOptions((prev) => prev.concat({ name: "Reset", value: -1 }));
-  //   }
-  // }, [selectOptions]);
-
-  console.log("selectOptions", selectOptions);
   return (
     <div className="dependency">
       <p>Select node to check dependency: </p>
@@ -39,6 +25,13 @@ const Dependency = ({ data, dependencyNode, setDependencyNode }) => {
       />
     </div>
   );
+};
+
+Dependency.propTypes = {
+  data: PropTypes.object.isRequired,
+  dependencyNode: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  setDependencyNode: PropTypes.func.isRequired,
 };
 
 export default Dependency;

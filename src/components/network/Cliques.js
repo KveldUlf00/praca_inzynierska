@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+
 import SelectMui from "../reusable/SelectMui";
 import ButtonMui from "../reusable/ButtonMui";
 
@@ -111,6 +113,18 @@ const Cliques = ({
       <div className="dataSet">{generateCliqueSets()}</div>
     </div>
   );
+};
+
+Cliques.propTypes = {
+  data: PropTypes.object.isRequired,
+  cliquesData: PropTypes.array.isRequired,
+  whichClique: PropTypes.array.isRequired,
+  setWhichClique: PropTypes.func.isRequired,
+  whichCliqueDegree: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  setWhichCliqueDegree: PropTypes.func.isRequired,
+  cliqueSet: PropTypes.array.isRequired,
+  setCliqueSet: PropTypes.func.isRequired,
 };
 
 export default Cliques;
