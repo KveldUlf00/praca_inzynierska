@@ -8,7 +8,7 @@ After cloning repository:
 
 `npm start`
 
-Run `server.py`, for example in VSC; right click on the filea nd choose `Run Python File in Terminal`
+Run `server.py`, for example in VSC; right click on the file and choose `Run Python File in Terminal`
 
 Enjoy!
 
