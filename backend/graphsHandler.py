@@ -23,6 +23,18 @@ def transformData(file):
                 return False
         return True
 
+    def checkIfDataAreTheSame(array):
+        notValid = True
+        for index in range(len(array) - 1):
+            if array[index] != array[index + 1]:
+                notValid = False
+        
+        if notValid:
+            return [*array[:-1], array[-1] + 0.1]
+        
+        return array
+
+
     for node in data["nodes"]:
         if checkNamesUniqueness(node):
             nodes.append(node)
@@ -30,7 +42,7 @@ def transformData(file):
             attrToMatrix = []
             for attribute in node["attributes"]:
                 attrToMatrix.append(node["attributes"][attribute])
-            matrixData[node["name"]] = attrToMatrix
+            matrixData[node["name"]] = checkIfDataAreTheSame(attrToMatrix)
 
     for conn in data["connections"]:
         if checkLinksUniqueness(conn):

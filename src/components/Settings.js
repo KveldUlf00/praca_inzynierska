@@ -23,22 +23,22 @@ const Settings = ({ setData, fileName, setCliques, setFileName }) => {
         name: "Andrzej",
         attributes: {
           attr1: 2,
-          attr2: 4,
-          attr3: 7,
+          attr2: 14,
+          attr3: -7,
         },
       },
       {
         name: "Basia",
         attributes: {
           attr1: 5,
-          attr2: 2,
+          attr2: 2.2,
           attr3: 9,
         },
       },
       {
         name: "Krzysztof",
         attributes: {
-          attr1: 7,
+          attr1: 7.3,
           attr2: 2,
           attr3: 3,
         },
