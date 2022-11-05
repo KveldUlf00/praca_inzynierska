@@ -1,3 +1,16 @@
+# First steps
+
+The application is created as part of the engineering work, carried out at the turn of 2022 and 2023 at the Wrocław University of Technology in the field of Systems Engineering.
+
+To run this project to must have configured Python and Node.
+
+After cloning repository:
+
+`npm start`
+Run `server.py`, for example in VSC; right click on the filea nd choose `Run Python File in Terminal`
+
+Enjoy!
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
