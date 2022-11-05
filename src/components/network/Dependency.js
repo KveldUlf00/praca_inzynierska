@@ -6,6 +6,25 @@ import SelectMui from "../reusable/SelectMui";
 const Dependency = ({ data, dependencyNode, setDependencyNode }) => {
   const [selectOptions, setSelectOptions] = useState([]);
 
+  const ColorScale = require("color-scales");
+
+  const colorScale = new ColorScale(0, 100, ["#ff0000", "#009933"], 1);
+
+  const generateScale = () => {
+    const res = [];
+
+    for (let i = 0; i < 101; i++) {
+      res.push(
+        <div
+          key={i}
+          className="cube"
+          style={{ backgroundColor: colorScale.getColor(i).toHexString() }}
+        ></div>
+      );
+    }
+    return res;
+  };
+
   useEffect(() => {
     setSelectOptions(
       data.nodes
@@ -16,13 +35,26 @@ const Dependency = ({ data, dependencyNode, setDependencyNode }) => {
 
   return (
     <div className="dependency">
-      <p>Select node to check dependency: </p>
-      <SelectMui
-        name="Choose node"
-        value={dependencyNode}
-        setValue={setDependencyNode}
-        options={selectOptions}
-      />
+      <div>
+        <p>Select node to check dependency: </p>
+        <SelectMui
+          name="Choose node"
+          value={dependencyNode}
+          setValue={setDependencyNode}
+          options={selectOptions}
+        />
+      </div>
+      <div>
+        <p>Degree of dependency: </p>
+        <div className="dependency-box">
+          <div className="dependency-scale">{generateScale()}</div>
+          <div className="dependency-desc">
+            <span>Low</span>
+            <span>Medium</span>
+            <span>High</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

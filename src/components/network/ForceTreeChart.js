@@ -24,7 +24,7 @@ function ForceTreeChart({ data, cliques }) {
 
   const ColorScale = require("color-scales");
 
-  let colorScale = new ColorScale(0, 100, ["#ff0000", "#009933"], 1);
+  const colorScale = new ColorScale(0, 100, ["#ff0000", "#009933"], 1);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -62,7 +62,7 @@ function ForceTreeChart({ data, cliques }) {
     const { nodes, links } = data;
 
     const handleCorrColorsForNodes = (node) => {
-      if (dependencyNode && dependencyNode !== -1) {
+      if (dependencyNode !== "" && dependencyNode !== -1) {
         const chosenName = nodes.filter(
           (node) => node.index === dependencyNode
         )[0].name;
@@ -189,7 +189,7 @@ function ForceTreeChart({ data, cliques }) {
         }}
       >
         <Box sx={{ minWidth: 200, textAlign: "center" }}>
-          <Typography variant="h5" sx={{ p: 2 }}>
+          <Typography variant="h5" sx={{ p: 2, fontWeight: "bold" }}>
             {anchorElData.name}
           </Typography>
           {anchorElData?.verticesDegree && (
@@ -206,6 +206,16 @@ function ForceTreeChart({ data, cliques }) {
             <Typography sx={{ p: 1 }}>Group: {anchorElData.group}</Typography>
           )}
           <Typography sx={{ p: 1 }}>Index: {anchorElData.index}</Typography>
+          <Typography sx={{ p: 1, fontWeight: "bold" }}>Attributes:</Typography>
+          {Object.keys(anchorElData).length !== 0
+            ? Object.entries(anchorElData?.attributes).map(([key, value]) => {
+                return (
+                  <Typography key={key} sx={{ p: 1 }}>
+                    {key}: {value}
+                  </Typography>
+                );
+              })
+            : ""}
         </Box>
       </Popover>
     </>
