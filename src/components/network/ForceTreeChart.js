@@ -11,7 +11,7 @@ import {
 } from "d3";
 import useResizeObserver from "../../service/useResizeObserver";
 import Properties from "./Properties";
-function ForceTreeChart({ data, cliques }) {
+function ForceTreeChart({ data, cliques, corruptedAttr }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElData, setAnchorElData] = useState({});
   const [whichClique, setWhichClique] = useState([]);
@@ -172,6 +172,7 @@ function ForceTreeChart({ data, cliques }) {
         setCliqueSet={setCliqueSet}
         dependencyNode={dependencyNode}
         setDependencyNode={setDependencyNode}
+        corruptedAttr={corruptedAttr}
       />
       <Popover
         className="popover"
@@ -225,6 +226,7 @@ function ForceTreeChart({ data, cliques }) {
 ForceTreeChart.propTypes = {
   data: PropTypes.object.isRequired,
   cliques: PropTypes.array.isRequired,
+  corruptedAttr: PropTypes.array.isRequired,
 };
 
 export default ForceTreeChart;

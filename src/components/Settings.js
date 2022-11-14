@@ -2,15 +2,23 @@ import PropTypes from "prop-types";
 import axios from "axios";
 
 import { Box, Popover, Typography } from "@mui/material";
+import CorruptedAttributes from "./CorruptedAttributes";
 import InfoIcon from "@mui/icons-material/Info";
+import Space from "./reusable/Space";
 
 import ButtonMui from "./reusable/ButtonMui";
 import ButtonIconMui from "./reusable/ButtonIconMui";
 import UploaderMui from "./reusable/UploaderMui";
-import Space from "./reusable/Space";
 import { useState } from "react";
 
-const Settings = ({ setData, fileName, setCliques, setFileName }) => {
+const Settings = ({
+  setData,
+  fileName,
+  setCliques,
+  setFileName,
+  corruptedAttr,
+  setCorruptedAttr,
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const openPopover = Boolean(anchorEl);
@@ -70,6 +78,7 @@ const Settings = ({ setData, fileName, setCliques, setFileName }) => {
         setData(res.data?.network);
         setFileName(res.data?.fileName);
         setCliques(res.data?.cliques);
+        setCorruptedAttr(res.data?.corruptedAttr);
       })
       .catch((err) => console.error(err));
   };
@@ -78,6 +87,7 @@ const Settings = ({ setData, fileName, setCliques, setFileName }) => {
     setData({});
     setFileName("");
     setCliques([]);
+    setCorruptedAttr([]);
   };
 
   return (
@@ -143,6 +153,9 @@ const Settings = ({ setData, fileName, setCliques, setFileName }) => {
           Data generated from file: <b>{fileName}</b>
         </p>
       )}
+      {corruptedAttr.length > 0 && (
+        <CorruptedAttributes corruptedAttr={corruptedAttr} />
+      )}
       <Space />
       <ButtonMui title="Clean data" onClick={handleCleanData} />
     </div>
@@ -154,6 +167,8 @@ Settings.propTypes = {
   fileName: PropTypes.string.isRequired,
   setCliques: PropTypes.func.isRequired,
   setFileName: PropTypes.func.isRequired,
+  corruptedAttr: PropTypes.array.isRequired,
+  setCorruptedAttr: PropTypes.func.isRequired,
 };
 
 export default Settings;

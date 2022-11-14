@@ -18,6 +18,7 @@ const Properties = ({
   setCliqueSet,
   dependencyNode,
   setDependencyNode,
+  corruptedAttr,
 }) => {
   const [activeTab, setActiveTab] = useState("cliques");
 
@@ -36,7 +37,11 @@ const Properties = ({
         centered
       >
         <Tab value="cliques" label="Cliques" />
-        <Tab value="dependency" label="Dependency" />
+        <Tab
+          value="dependency"
+          label="Dependency"
+          disabled={corruptedAttr.length > 0}
+        />
       </Tabs>
       <TabPanel value={activeTab} index="cliques">
         <Cliques
@@ -74,6 +79,7 @@ Properties.propTypes = {
   dependencyNode: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
   setDependencyNode: PropTypes.func.isRequired,
+  corruptedAttr: PropTypes.array.isRequired,
 };
 
 export default Properties;
