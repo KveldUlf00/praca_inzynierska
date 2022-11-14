@@ -13,7 +13,13 @@ def http_send():
             file = request.files['file']
             res = transformData(file)
 
-            return jsonify({"network": res["data"], "fileName": res["fileName"], "cliques": res["cliques"], "corr": res["corr"]})
+            return jsonify({
+                "network": res["data"],
+                "fileName": res["fileName"],
+                "cliques": res["cliques"],
+                "corr": res["corr"],
+                "corruptedAttr": res["corruptedAttr"]
+            })
 
         return jsonify({"message": "failure"})
 

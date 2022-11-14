@@ -12,6 +12,7 @@ const App = () => {
   const [fileName, setFileName] = useState("");
   const [cliques, setCliques] = useState([]);
   const [activeTab, setActiveTab] = useState("settings");
+  const [corruptedAttr, setCorruptedAttr] = useState([]);
 
   const handleChangeTab = (e, newTab) => {
     setActiveTab(newTab);
@@ -45,10 +46,16 @@ const App = () => {
           fileName={fileName}
           setFileName={setFileName}
           setCliques={setCliques}
+          corruptedAttr={corruptedAttr}
+          setCorruptedAttr={setCorruptedAttr}
         />
       </TabPanel>
       <TabPanel value={activeTab} index="network">
-        <ForceTreeChart data={data} cliques={cliques} />
+        <ForceTreeChart
+          data={data}
+          cliques={cliques}
+          corruptedAttr={corruptedAttr}
+        />
       </TabPanel>
       <TabPanel value={activeTab} index="info">
         <Info />

@@ -1,6 +1,8 @@
 import pandas as pd
 import networkx as nx
+import numpy as np
 from flask import json
+from scipy import stats
 
 def transformData(file):
     nodes = []
@@ -8,6 +10,8 @@ def transformData(file):
     connection_list = []
     matrixData = {}
     corrObject = {}
+    attrNames = {}
+    whichAttributesCorrupted = []
 
     data = json.load(file)
 
@@ -30,6 +34,7 @@ def transformData(file):
                 notValid = False
         
         if notValid:
+            # todo - sprawdz czy mozna dodawac o mniejsza wartosc
             return [*array[:-1], array[-1] + 0.1]
         
         return array
@@ -38,6 +43,12 @@ def transformData(file):
     for node in data["nodes"]:
         if checkNamesUniqueness(node):
             nodes.append(node)
+
+            if attrNames == {}:
+                n = 0
+                for attribute in node["attributes"]:
+                    attrNames[n] = attribute
+                    n += 1
 
             attrToMatrix = []
             for attribute in node["attributes"]:
@@ -58,6 +69,15 @@ def transformData(file):
     # correlation matrix
     df = pd.DataFrame(matrixData)
     corr = df.corr()
+
+    # check if attribues are corrupted
+    z = np.abs(stats.zscore(df))
+    z['mean'] = z.mean(axis=1)
+
+    for idx, row in z.iterrows():
+        if row['mean'] >= 1.4:
+            whichAttributesCorrupted.append(attrNames[idx])
+
 
     nodeNames = [elem["name"] for elem in nodes]
 
@@ -102,4 +122,10 @@ def transformData(file):
     closenessCentrality(G)
     cliques = allCliques(G)
 
-    return {"data": {'nodes': nodes, 'links': links}, 'fileName': data["title"], 'cliques': cliques, 'corr': corrObject}
+    return {
+        "data": {'nodes': nodes, 'links': links},
+        'fileName': data["title"],
+        'cliques': cliques,
+        'corr': corrObject,
+        'corruptedAttr': whichAttributesCorrupted
+    }

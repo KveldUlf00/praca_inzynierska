@@ -1,0 +1,221 @@
+{
+	"title": "Second JSON network",
+	"nodes": [{
+			"name": "Ghost",
+			"attributes": {
+				"followers": 1.98,
+                "band_members": 8,
+                "albums": 5,
+                "awards": 5,
+				"genres_number": 2
+			}
+		},
+		{
+			"name": "Sabaton",
+			"attributes": {
+				"followers": 1.7,
+                "band_members": 5,
+                "albums": 10,
+                "awards": 3,
+				"genres_number": 4
+			}
+		},
+		{
+			"name": "Rammstein",
+			"attributes": {
+				"followers": 7.1,
+                "band_members": 6,
+                "albums": 8,
+                "awards": 3,
+				"genres_number": 6
+			}
+		},
+		{
+			"name": "Brothers of Metal",
+			"attributes": {
+				"followers": 0.17,
+                "band_members": 8,
+                "albums": 2,
+                "awards": 0,
+				"genres_number": 3
+			}
+		},
+		{
+			"name": "Powerwolf",
+			"attributes": {
+				"followers": 0.7,
+                "band_members": 5,
+                "albums": 8,
+                "awards": 4,
+				"genres_number": 4
+			}
+		},
+		{
+			"name": "Video",
+			"attributes": {
+				"followers": 0.05,
+                "band_members": 5,
+                "albums": 3,
+                "awards": 8,
+				"genres_number": 1
+			}
+		},
+		{
+			"name": "Nightwish",
+			"attributes": {
+				"followers": 1.8,
+                "band_members": 5,
+                "albums": 10,
+                "awards": 7,
+				"genres_number": 7
+			}
+		},
+		{
+			"name": "Linkin Park",
+			"attributes": {
+				"followers": 22,
+                "band_members": 5,
+                "albums": 7,
+                "awards": 44,
+				"genres_number": 4
+			}
+		},
+		{
+			"name": "Lana Del Rey",
+			"attributes": {
+				"followers": 18.5,
+                "band_members": 1,
+                "albums": 8,
+                "awards": 8,
+				"genres_number": 2
+			}
+		},
+		{
+			"name": "Leprous",
+			"attributes": {
+				"followers": 0.2,
+                "band_members": 7,
+                "albums": 8,
+                "awards": 0,
+				"genres_number": 3
+			}
+		},
+		{
+			"name": "Sanah",
+			"attributes": {
+				"followers": 1.6,
+                "band_members": 1,
+                "albums": 4,
+                "awards": 15,
+				"genres_number": 1
+			}
+		},
+		{
+			"name": "Billie Eilish",
+			"attributes": {
+				"followers": 71.4,
+                "band_members": 1,
+                "albums": 2,
+                "awards": 18,
+				"genres_number": 3
+			}
+		},
+		{
+			"name": "Avicii",
+			"attributes": {
+				"followers": 22.2,
+                "band_members": 1,
+                "albums": 4,
+                "awards": 2,
+				"genres_number": 5
+			}
+		},
+		{
+			"name": "Five Finger Death Punch",
+			"attributes": {
+				"followers": 5.7,
+                "band_members": 5,
+                "albums": 10,
+                "awards": 6,
+				"genres_number": 3
+			}
+		},
+		{
+			"name": "Wind Rose",
+			"attributes": {
+				"followers": 0.1,
+                "band_members": 5,
+                "albums": 5,
+                "awards": 0,
+				"genres_number": 6
+			}
+		},
+		{
+			"name": "Wintersun",
+			"attributes": {
+				"followers": 0.17,
+                "band_members": 5,
+                "albums": 3,
+                "awards": 0,
+				"genres_number": 11
+			}
+		}
+	],
+	"connections": [
+		["Ghost", "Rammstein"],
+		["Ghost", "Five Finger Death Punch"],
+		["Ghost", "Sabaton"],
+		["Ghost", "Brothers of Metal"],
+		["Ghost", "Powerwolf"],
+		["Ghost", "Nightwish"],
+		["Ghost", "Wintersun"],
+		["Sabaton", "Ghost"],
+		["Sabaton", "Brothers of Metal"],
+		["Sabaton", "Powerwolf"],
+		["Sabaton", "Nightwish"],
+		["Sabaton", "Wintersun"],
+		["Sabaton", "Wind Rose"],
+		["Rammstein", "Ghost"],
+		["Rammstein", "Five Finger Death Punch"],
+		["Rammstein", "Nightwish"],
+		["Rammstein", "Wintersun"],
+		["Rammstein", "Wind Rose"],
+		["Brothers of Metal", "Ghost"],
+		["Brothers of Metal", "Sabaton"],
+		["Brothers of Metal", "Nightwish"],
+		["Brothers of Metal", "Powerwolf"],
+		["Brothers of Metal", "Wind Rose"],
+		["Powerwolf", "Ghost"],
+		["Powerwolf", "Sabaton"],
+		["Powerwolf", "Nightwish"],
+		["Powerwolf", "Wind Rose"],
+		["Video", "Lana Del Rey"],
+		["Video", "Sanah"],
+		["Video", "Billie Eilish"],
+		["Nightwish", "Ghost"],
+		["Nightwish", "Sabaton"],
+		["Nightwish", "Brothers of Metal"],
+		["Nightwish", "Powerwolf"],
+		["Nightwish", "Rammstein"],
+		["Linkin Park", "Five Finger Death Punch"],
+		["Linkin Park", "Lana Del Rey"],
+		["Lana Del Rey", "Avicii"],
+		["Lana Del Rey", "Video"],
+		["Lana Del Rey", "Linkin Park"],
+		["Leprous", "Nightwish"],
+		["Avicii", "Billie Eilish"],
+		["Avicii", "Sanah"],
+		["Avicii", "Lana Del Rey"],
+		["Sanah", "Billie Eilish"],
+		["Sanah", "Avicii"],
+		["Sanah", "Video"],
+		["Billie Eilish", "Avicii"],
+		["Billie Eilish", "Sanah"],
+		["Billie Eilish", "Video"],
+		["Five Finger Death Punch", "Ghost"],
+		["Five Finger Death Punch", "Wind Rose"],
+		["Five Finger Death Punch", "Wintersun"],
+		["Five Finger Death Punch", "Rammstein"],
+		["Five Finger Death Punch", "Linkin Park"]
+	]
+}
