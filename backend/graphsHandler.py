@@ -3,6 +3,7 @@ import networkx as nx
 import numpy as np
 from flask import json
 from scipy import stats
+from sklearn.preprocessing import StandardScaler
 
 def transformData(file):
     nodes = []
@@ -34,8 +35,7 @@ def transformData(file):
                 notValid = False
         
         if notValid:
-            # todo - sprawdz czy mozna dodawac o mniejsza wartosc
-            return [*array[:-1], array[-1] + 0.1]
+            return [*array[:-1], array[-1] + 0.001]
         
         return array
 
@@ -68,16 +68,19 @@ def transformData(file):
 
     # correlation matrix
     df = pd.DataFrame(matrixData)
-    corr = df.corr()
 
     # check if attribues are corrupted
     z = np.abs(stats.zscore(df))
-    z['mean'] = z.mean(axis=1)
 
+    z['mean'] = z.mean(axis=1)
     for idx, row in z.iterrows():
         if row['mean'] >= 1.4:
             whichAttributesCorrupted.append(attrNames[idx])
 
+    scaler = StandardScaler()
+    scaled_data = scaler.fit_transform(df)
+    scaled_df = pd.DataFrame(scaled_data, columns = df.columns)
+    corr = scaled_df.corr()
 
     nodeNames = [elem["name"] for elem in nodes]
 
@@ -95,14 +98,12 @@ def transformData(file):
 
     # networkx
     def verticesDegree(Graph):
-        # Stopień wierzchołków
         for node in list(Graph.nodes):
             for nodeElem in nodes:
                 if nodeElem["name"] == node:
                     nodeElem["verticesDegree"] = Graph.degree[node]
 
     def closenessCentrality(Graph):
-        # Centralność bliskości
         for node in Graph.nodes:
             for nodeElem in nodes:
                 if nodeElem["name"] == node:
