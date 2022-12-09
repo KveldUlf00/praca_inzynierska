@@ -7,7 +7,7 @@ const CorruptedAttributes = ({ corruptedAttr }) => {
     <div>
       <Space />
       <div className="corrupted">
-        <h4>Errors in attributes detected!</h4>
+        <h4>Warning in attributes detected!</h4>
         <p>These attributes are corrupted:</p>
         {corruptedAttr.map((elem) => (
           <p key={elem} className="attribute">
@@ -19,10 +19,7 @@ const CorruptedAttributes = ({ corruptedAttr }) => {
           Due to this problem the{" "}
           <span className="blue-text">dependency analyze</span> is blocked.
         </p>
-        <p>
-          My recommendation: change the attributes or standardize their values
-          in relation to the rest of the attributes.
-        </p>
+        <p>Recommendation: change these attributes.</p>
       </div>
     </div>
   );
